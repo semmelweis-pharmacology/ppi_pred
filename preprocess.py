@@ -72,7 +72,7 @@ def bfs(size, graph):
             if len(overlap) == len(current_nodes):
                 break
             else:
-                if len(current_list)+len(current_nodes) <= size:
+                if len(current_list)+len(current_nodes) < size:
                     current_list = current_list+current_nodes
                 else:
                     n = size-len(current_list)
