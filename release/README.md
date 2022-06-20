@@ -11,4 +11,4 @@ Initial version developed and submitted for the Protein-Protein Interaction Pred
 Improved version with bug fixes.
 
 ### v1.2
-Version to compare the usage of raw topological, embedding and combined input data for cGAN training. Our methodological manuscript describing these comparisons is currently under revision.
+Version to compare the usage of raw topological, embedding and combined input data for cGAN training. Our methodological manuscript describing these comparisons has been published in [BMC Bioinformatics](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-04598-x).
