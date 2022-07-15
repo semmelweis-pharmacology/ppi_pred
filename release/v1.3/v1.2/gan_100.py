@@ -70,11 +70,6 @@ N100_Ad = pd.read_csv(input_settings["oSourceList"]["oN100_Ad"],
 N90_Ad = pd.read_csv(input_settings["oSourceList"]["oN90_Ad"],
                         delimiter=' ', names = ['SOURCE', 'TARGET'], header = None)
 
-N100_Em = pd.read_csv(input_settings["oSourceList"]["oN100_Em"],
-                        delimiter=' ', header = None, index_col= 0)
-N90_Em = pd.read_csv(input_settings["oSourceList"]["oN90_Em"],
-                        delimiter=' ', header = None, index_col= 0)
-
 N100_Mod = pd.read_csv(input_settings["oSourceList"]["oN100_Mod"],
                         delimiter='\t', header = None, index_col= 0)
 
@@ -86,7 +81,7 @@ print("- Reading is completed")
 #%%
 # Functions for handling the data processing        
 
-def generate_condition_and_linking_set(N_Mod_base, N_Em_base, N_Ad_base, N_Ad_plus_1, 
+def generate_condition_and_linking_set(N_Mod_base, N_Ad_base, N_Ad_plus_1, 
                                         module_th_low, comb_per_module):
     
     n_cpu_worker = mp.cpu_count()
@@ -104,14 +99,14 @@ def generate_condition_and_linking_set(N_Mod_base, N_Em_base, N_Ad_base, N_Ad_pl
         with mp.Pool(processes = n_workers) as pool:
         
             main_data.extend(pool.starmap(handle_module, zip(it.repeat(N_Mod_base), 
-                    it.repeat(N_Em_base), it.repeat(N_Ad_base), it.repeat(N_Ad_plus_1), 
+                    it.repeat(N_Ad_base), it.repeat(N_Ad_plus_1), 
                     it.repeat(module_th_low), it.repeat(comb_per_module), range(len(N_Mod_base)))))
                 
         flat_list = [item for sublist in main_data for item in sublist]
         
     return flat_list
 
-def handle_module(N_Mod_base, N_Em_base, N_Ad_base, N_Ad_plus_1, 
+def handle_module(N_Mod_base, N_Ad_base, N_Ad_plus_1, 
                   module_th_low, comb_per_module, index):
     
     main_data_set  = []
@@ -123,8 +118,6 @@ def handle_module(N_Mod_base, N_Em_base, N_Ad_base, N_Ad_plus_1,
     link_ids = np.empty((m_size, m_size), dtype = object)
     
     for j in range(m_size):
-
-        # embedding[j, :] = np.asarray(N_Em_base.loc[int(N_Mod_base.iloc[index].iloc[j])])
         
         for l in range(m_size):
 
@@ -456,10 +449,10 @@ gen_opt = tf.keras.optimizers.Adam(learning_rate=generator_learning_rate,
                                     beta_1=0.9, 
                                     beta_2=0.99)
 
-train_data = generate_condition_and_linking_set(N90_Mod, N90_Em, N90_Ad, 
+train_data = generate_condition_and_linking_set(N90_Mod, N90_Ad, 
                                                 N100_Ad, module_size, recomb_per_module)
 
-test_data = generate_condition_and_linking_set(N100_Mod, N100_Em, N100_Ad, 
+test_data = generate_condition_and_linking_set(N100_Mod, N100_Ad, 
                                                 N100_Ad, module_size, 1)
 
 print("- Data processing is completed")
