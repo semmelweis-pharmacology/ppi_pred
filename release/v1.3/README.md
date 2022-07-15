@@ -1,6 +1,6 @@
 # Release - 1.3
 
-This version of the software combines two previous versions (v1.0 and v1.2) under one common launcher, which enables better parametrization and easier runs on arbitrary networks.
+This version of the software combines two previous versions (v1.0 and v1.2) under one common launcher, which enables better parametrization and easier runs on arbitrary networks. In addition, P@500 calculation was fixed in the postprocessing step.
 
 ## Usage
 

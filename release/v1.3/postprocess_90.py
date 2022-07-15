@@ -91,6 +91,11 @@ for kf in range(0, 10):
 
     scores = np.array(scores)
     true_label = np.array(true_label)
+
+    # sort results by scores
+    results_df = pd.DataFrame({"true_label": true_label, "scores": scores})
+    results_df_sorted = results_df.sort_values(by=["scores"], ascending=False)
+
     # AUC
     AUROC[rea] = roc_auc_score(true_label, scores)
 
@@ -98,9 +103,10 @@ for kf in range(0, 10):
     precision, recall, thresholds = precision_recall_curve(true_label, scores)
     AUPRC[rea] = metrics.auc(recall, precision)
 
-    # Precision of top 5000
-    sorted_indices = scores.argsort()[-500:][::-1]
-    P_500[rea] = len(np.where(sorted_indices<500)[0])*1.0/500
+    # Precision of top 500
+    top_500 = results_df_sorted.head(500)
+    tp_top_500 = (top_500['true_label'] == 1).sum()
+    P_500[rea] = tp_top_500/500
 
     # NDCG
     NDCG[rea] = ndcg_score([true_label], [scores])
