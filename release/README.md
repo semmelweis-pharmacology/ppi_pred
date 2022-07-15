@@ -12,3 +12,6 @@ Improved version with bug fixes.
 
 ### v1.2
 Version to compare the usage of raw topological, embedding and combined input data for cGAN training. Our methodological manuscript describing these comparisons has been published in [BMC Bioinformatics](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-022-04598-x).
+
+### v1.3
+This version combines two previous versions (v1.0 and v1.2) under one common launcher, which enables better parametrization and easier runs on arbitrary networks.

@@ -23,7 +23,7 @@ network_name = sys.argv[2]
 gan_filename=sys.argv[3]
 
 
-id_data = glob.glob(output_dir+'network/'+str(network_name)+'/'+str(network_name)+'_edgelist_conv_id.csv')
+id_data = glob.glob(output_dir+'/'+str(network_name)+'/network/'+str(network_name)+'_edgelist_conv_id.csv')
 id_data = pd.read_csv(id_data[0], sep = '\t')
 # get int:str ID dictionary
 id_dict = dict(zip(id_data.int_node_id, id_data.str_node_id))
@@ -74,4 +74,4 @@ whole_dict = {'Sources':source_list, 'Targets':target_list, 'Score':scores_list}
 whole_df = pd.DataFrame(whole_dict)
 sorted_df = whole_df.sort_values(by='Score', ascending=False)
 top500 = sorted_df.head(500)
-top500.to_csv(output_dir+'metrics/'+network_name+'_top500_scores.csv', index=False)
+top500.to_csv(output_dir+'/'+str(network_name)+'/metrics/'+str(network_name)+'_top500_scores.csv', index=False)
