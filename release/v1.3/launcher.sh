@@ -39,7 +39,7 @@ do
           json_path="$output_dir/$network_name/json/"$network_name"_$j.json"
           cp ./v1.0/template_input.json $json_path
           sed -i 's,|1|,'$output_dir'/'$network_name'/network/'$network_name'_n100.edgelist,g' $json_path
-          sed -i 's,|10|,'$output_dir'/'$network_name'/network/'$network_name'_n100.emb,g' $json_path
+          sed -i 's,|10|,'$output_dir'/'$network_name'/network/'$network_name'_n100_truncated.emb,g' $json_path
           sed -i 's,|11|,'$output_dir'/'$network_name'/network/'$network_name'_n100_modules.csv,g' $json_path
           sed -i 's,|2|,'$output_dir'/'$network_name'/network/'$network_name'_n90_train_kf_'$j'.edgelist,g' $json_path
           sed -i 's,|3|,'$output_dir'/'$network_name'/network/'$network_name'_n90_train_kf_'$j'_truncated.emb,g' $json_path
