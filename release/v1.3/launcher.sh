@@ -90,6 +90,9 @@ do
       then
         python3 -u ./v1.2/gan_90.py $json_path
       fi
+      end_time=`date +%s`
+      runtime=$((end_time - start_time))
+      echo $runtime > "$output_dir/$network_name/gan/$json_filename_wext.log"
     done
   elif [[ "$type" == exp_val ]];
   then
@@ -101,9 +104,6 @@ do
       python3 -u ./v1.2/gan_100.py $output_dir/$network_name/json/"$network_name"_1.json
     fi
   fi
-    end_time=`date +%s`
-    runtime=$((end_time - start_time))
-    echo $runtime > "$output_dir/$network_name/gan/$json_filename_wext.log"
   if [[ "$type" == cross_val ]];
   then
     python3 -u ./postprocess_90.py $network_name $output_dir/$network_name/ $output_dir/$network_name/network/ $output_dir/$network_name/metrics/
